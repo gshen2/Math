@@ -8,6 +8,9 @@ class Cube:
     def surface_area(self):
         return 6*self.side**2
 
+    def volume(self):
+        return self.side**3
+
 
 class Cylinder:
     def __init__(self, radius, height):

@@ -9,6 +9,15 @@ class Square:
         return self.side**2
 
 
+class Triangle:
+    def __init__(self, base, height):
+        self.base = base
+        self.height = height
+
+    def area(self):
+        return self.base*self.height/2
+
+
 class Circle:
     def __init__(self, radius):
         self.radius = radius
@@ -30,4 +39,4 @@ class Trapezoid:
         return (self.top + self.bottom)*self.height/2
 
 
-print(Circle(radius=3).circumference())
+print(Triangle(1,2).area())
