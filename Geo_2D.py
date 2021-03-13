@@ -8,6 +8,9 @@ class Square:
     def area(self):
         return self.side**2
 
+    def perimeter(self):
+        return self.side*4
+
 
 class Rectangle:
     def __init__(self, base=1, height=1):
@@ -21,7 +24,7 @@ class Rectangle:
         return 2*(self.base+self.height)
 
 
-class Triangle_1:
+class Triangle_BH:
     def __init__(self, base=1, height=1):
         self.base = base
         self.height = height
@@ -29,8 +32,11 @@ class Triangle_1:
     def area(self):
         return 0.5*self.base*self.height
 
+    def perimeter(self):
+        pass
 
-class Triangle_2:
+
+class Triangle_SSS:
     def __init__(self, side_1, side_2, side_3):
         self.a = side_1
         self.b = side_2
@@ -53,6 +59,9 @@ class Trapezoid:
     def area(self):
         return 0.5 * (self.a + self.b) * self.h
 
+    def perimeter(self):
+        pass
+
 
 class Circle:
     def __init__(self, radius):
@@ -63,3 +72,7 @@ class Circle:
 
     def circumference(self):
         return 2 * math.pi * self.radius
+
+
+class Polygon:
+    pass

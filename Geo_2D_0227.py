@@ -8,14 +8,59 @@ class Square:
     def area(self):
         return self.side**2
 
+    def perimeter(self):
+        return self.side*4
 
-class Triangle:
-    def __init__(self, base, height):
+
+class Rectangle:
+    def __init__(self, base=1, height=1):
         self.base = base
         self.height = height
 
     def area(self):
-        return self.base*self.height/2
+        return self.base*self.height
+
+    def perimeter(self):
+        return 2*(self.base+self.height)
+
+
+class Triangle_1:
+    def __init__(self, base=1, height=1):
+        self.base = base
+        self.height = height
+
+    def area(self):
+        return 0.5*self.base*self.height
+
+    def perimeter(self):
+        pass
+
+
+class Triangle_2:
+    def __init__(self, side_1, side_2, side_3):
+        self.a = side_1
+        self.b = side_2
+        self.c = side_3
+
+    def perimeter(self):
+        return self.a + self.b + self.c
+
+    def area(self):
+        s = 0.5 * (self.a + self.b + self.c)
+        return math.sqrt(s*(s-self.a)*(s-self.b)*(s-self.c))
+
+
+class Trapezoid:
+    def __init__(self, top, bottom, height):
+        self.a = top
+        self.b = bottom
+        self.h = height
+
+    def area(self):
+        return 0.5 * (self.a + self.b) * self.h
+
+    def perimeter(self):
+        pass
 
 
 class Circle:
@@ -29,14 +74,5 @@ class Circle:
         return 2 * math.pi * self.radius
 
 
-class Trapezoid:
-    def __init__(self, top, bottom, height):
-        self.top = top
-        self.bottom = bottom
-        self.height = height
-
-    def area(self):
-        return (self.top + self.bottom)*self.height/2
-
-
-print(Triangle(1,2).area())
+class Polygon:
+    pass
