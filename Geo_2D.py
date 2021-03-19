@@ -42,12 +42,12 @@ class Triangle_SSS:
         self.b = side_2
         self.c = side_3
 
-    def perimeter(self):
-        return self.a + self.b + self.c
-
     def area(self):
         s = 0.5 * (self.a + self.b + self.c)
         return math.sqrt(s*(s-self.a)*(s-self.b)*(s-self.c))
+
+    def perimeter(self):
+        return self.a + self.b + self.c
 
 
 class Trapezoid:

@@ -1,3 +1,4 @@
+import Geo_2D
 import tkinter as tk
 from tkinter import ttk
 
@@ -6,61 +7,98 @@ class Window(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('Geometry Calculator')
-        self.geometry('500x500')
-        self.shape_select()
+        self.resizable(False, False)
+        self.tabs_2d_3d()
 
-    def shape_select(self):
-        shape_2D = tk.StringVar()
-        shape_2D_chosen = ttk.Combobox(width=10, textvariable=shape_2D, state='readonly')
-        shape_2D_chosen['values'] = ('Circle', 'Rectangle', 'Square')
-        shape_2D_chosen.grid(row=0, column=1, columnspan=2)
-        shape_2D_chosen.current(0)
+    def tabs_2d_3d(self):
+        tabControl = ttk.Notebook(self)
+        self._2d = ttk.Frame(tabControl)
+        self._3d = ttk.Frame(tabControl)
+        tabControl.add(self._2d, text='2D Shapes')
+        tabControl.add(self._3d, text='3D Objects')
+        tabControl.pack(expand=1, fill='both')
+        self.tabs_2d()
+        self.tabs_3d()
 
-    def widgets(self):
-        label_shape = ttk.Label(self, text='Shape:')
-        label_shape.grid(column=0, row=0, padx=10, pady=10)
+    def tabs_2d(self):
+        tabControl = ttk.Notebook(self._2d)
+        self.square = ttk.Frame(tabControl)
+        self.rectangle = ttk.Frame(tabControl)
+        self.circle = ttk.Frame(tabControl)
+        tabControl.add(self.square, text='Square')
+        tabControl.add(self.rectangle, text='Rectangle')
+        tabControl.add(self.circle, text='Circle')
+        tabControl.pack(expand=1, fill='both')
+        self.shapes_2d()
 
-        label_input = ttk.Label(self, text='Input:')
-        label_input.grid(row=1, column=0, padx=10, pady=10)
+    def tabs_3d(self):
+        tabControl = ttk.Notebook(self._3d)
+        self.cube = ttk.Frame(tabControl)
+        self.cuboid = ttk.Frame(tabControl)
+        self.sphere = ttk.Frame(tabControl)
+        tabControl.add(self.cube, text='Cube')
+        tabControl.add(self.cuboid, text='Cuboid')
+        tabControl.add(self.sphere, text='Sphere')
+        tabControl.pack(expand=1)
+        self.shapes_3d()
 
-        label_base = ttk.Label(self, text='Base = ')
-        label_base.grid(row=1, column=1, padx=10, pady=10)
-        base = tk.StringVar()
-        base_box = ttk.Entry(width=10, textvariable=base)
-        base_box.grid(row=1, column=2, padx=10, pady=10)
+    def shapes_2d(self):
+        self.sq()
+        self.rect()
+        self.circ()
 
-        label_height = ttk.Label(self, text='Height = ')
-        label_height.grid(row=2, column=1, padx=10, pady=10)
-        height = tk.StringVar()
-        height = ttk.Entry(width=10, textvariable=height)
-        height.grid(row=2, column=2, padx=10, pady=10)
+    def sq(self):
+        lbl_sq_base = ttk.Label(self.square, text='base = ')
+        lbl_sq_base.grid(row=0, column=0)
+        self.sq_base = tk.StringVar()
+        entry_sq_base = ttk.Entry(self.square, textvariable=self.sq_base)
+        entry_sq_base.grid(row=0, column=1)
+        entry_sq_base.focus()
 
-        label_radius = ttk.Label(self, text='Radius = ')
-        label_radius.grid(row=3, column=1, padx=10, pady=10)
-        radius = tk.StringVar()
-        radius_box = ttk.Entry(width=10, textvariable=radius)
-        radius_box.grid(row=3, column=2, padx=10, pady=10)
+        button = ttk.Button(self.square, text='Calculate', command=self.calc_sq)
+        button.grid(row=3, column=0, columnspan=2)
 
-        label_output = ttk.Label(self, text='Output:')
-        label_output.grid(row=4, column=0, padx=10, pady=10)
+        lbl_sq_area = ttk.Label(self.square, text='area = ')
+        lbl_sq_area.grid(row=4, column=0)
+        self.sq_area = tk.StringVar()
+        entry_sq_area = ttk.Entry(self.square, textvariable=self.sq_area, state='disable')
+        entry_sq_area.grid(row=4, column=1)
 
-        label_perimeter = ttk.Label(self, text='Perimeter')
-        label_perimeter.grid(row=4, column=1, padx=10, pady=10)
-        perimeter = tk.StringVar()
-        perimeter_box = ttk.Entry(width=10, textvariable=perimeter, state='disabled')
-        perimeter_box.grid(row=4, column=2, padx=10, pady=10)
+        lbl_sq_peri = ttk.Label(self.square, text='perimeter = ')
+        lbl_sq_peri.grid(row=5, column=0)
+        self.sq_peri = tk.StringVar()
+        entry_sq_peri = ttk.Entry(self.square, textvariable=self.sq_peri, state='disable')
+        entry_sq_peri.grid(row=5, column=1)
 
-        label_area = ttk.Label(self, text='Area')
-        label_area.grid(row=5, column=1, padx=10, pady=10)
-        area = tk.StringVar()
-        area_box = ttk.Entry(width=10, textvariable=area, state='disabled')
-        area_box.grid(row=5, column=2, padx=10, pady=10)
+    def calc_sq(self):
+        self.sq_area.set(Geo_2D.Square(float(self.sq_base.get())).area())
+        self.sq_peri.set(Geo_2D.Square(float(self.sq_base.get())).perimeter())
 
-        label_circumference = ttk.Label(self, text='Perimeter')
-        label_circumference.grid(row=6, column=1, padx=10, pady=10)
-        circumference = tk.StringVar()
-        circumference_box = ttk.Entry(width=10, textvariable=circumference, state='disabled')
-        circumference_box.grid(row=6, column=2, padx=10, pady=10)
+    def rect(self):
+        lbl_rect_base = ttk.Label(self.rectangle, text='base = ')
+        lbl_rect_base.grid(row=0, column=0)
+        rect_base = tk.StringVar()
+        entry_rect_base = ttk.Entry(self.rectangle, textvariable=rect_base)
+        entry_rect_base.grid(row=0, column=1)
+
+        lbl_rect_h = ttk.Label(self.rectangle, text='height = ')
+        lbl_rect_h.grid(row=1, column=0)
+        rect_h = tk.StringVar()
+        entry_rect_h = ttk.Entry(self.rectangle, textvariable=rect_h)
+        entry_rect_h.grid(row=1, column=1)
+
+    def circ(self):
+        lbl_r = ttk.Label(self.circle, text='radius = ')
+        lbl_r.grid(row=0, column=0)
+        r = tk.StringVar()
+        entry_r = ttk.Entry(self.circle, textvariable=r)
+        entry_r.grid(row=0, column=1)
+
+    def shapes_3d(self):
+        pass
+
+    def calculate(self):
+        pass
 
 
 if __name__ == '__main__':
