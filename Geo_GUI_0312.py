@@ -77,15 +77,40 @@ class Window(tk.Tk):
     def rect(self):
         lbl_rect_base = ttk.Label(self.rectangle, text='base = ')
         lbl_rect_base.grid(row=0, column=0)
-        rect_base = tk.StringVar()
-        entry_rect_base = ttk.Entry(self.rectangle, textvariable=rect_base)
+        self.rect_base = tk.StringVar()
+        entry_rect_base = ttk.Entry(self.rectangle, textvariable=self.rect_base)
         entry_rect_base.grid(row=0, column=1)
 
         lbl_rect_h = ttk.Label(self.rectangle, text='height = ')
         lbl_rect_h.grid(row=1, column=0)
-        rect_h = tk.StringVar()
-        entry_rect_h = ttk.Entry(self.rectangle, textvariable=rect_h)
+        self.rect_h = tk.StringVar()
+        entry_rect_h = ttk.Entry(self.rectangle, textvariable=self.rect_h)
         entry_rect_h.grid(row=1, column=1)
+
+        button = ttk.Button(self.rectangle, text='Calculate', command=self.calc_rect)
+        button.grid(row=3, column=0, columnspan=2)
+
+        lbl_rect_area = ttk.Label(self.rectangle, text='area = ')
+        lbl_rect_area.grid(row=4, column=0)
+        self.rect_area = tk.StringVar()
+        entry_rect_area = ttk.Entry(self.rectangle, textvariable=self.rect_area, state='disable')
+        entry_rect_area.grid(row=4, column=1)
+
+        lbl_rect_peri = ttk.Label(self.rectangle, text='perimeter = ')
+        lbl_rect_peri.grid(row=5, column=0)
+        self.rect_peri = tk.StringVar()
+        entry_rect_peri = ttk.Entry(self.rectangle, textvariable=self.rect_peri, state='disable')
+        entry_rect_peri.grid(row=5, column=1)
+
+    def calc_rect(self):
+        self.rect_area.set(Geo_2D.Rectangle(
+            base=float(self.rect_base.get()),
+            height=float(self.rect_h.get())
+        ).area())
+        self.rect_peri.set(Geo_2D.Rectangle(
+            base=float(self.rect_base.get()),
+            height=float(self.rect_h.get())
+        ).perimeter())
 
     def circ(self):
         lbl_r = ttk.Label(self.circle, text='radius = ')
