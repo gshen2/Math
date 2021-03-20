@@ -51,24 +51,24 @@ class Window(tk.Tk):
         lbl_sq_base = ttk.Label(self.square, text='base = ')
         lbl_sq_base.grid(row=0, column=0)
         self.sq_base = tk.StringVar()
-        entry_sq_base = ttk.Entry(self.square, textvariable=self.sq_base)
+        entry_sq_base = ttk.Entry(self.square, width=10, textvariable=self.sq_base)
         entry_sq_base.grid(row=0, column=1)
         entry_sq_base.focus()
 
         button = ttk.Button(self.square, text='Calculate', command=self.calc_sq)
-        button.grid(row=3, column=0, columnspan=2)
+        button.grid(row=3, column=0, columnspan=4, sticky='NSEW', padx=20, pady=20)
 
         lbl_sq_area = ttk.Label(self.square, text='area = ')
-        lbl_sq_area.grid(row=4, column=0)
+        lbl_sq_area.grid(row=0, column=2)
         self.sq_area = tk.StringVar()
-        entry_sq_area = ttk.Entry(self.square, textvariable=self.sq_area, state='disable')
-        entry_sq_area.grid(row=4, column=1)
+        entry_sq_area = ttk.Entry(self.square, width=10, textvariable=self.sq_area, state='disable')
+        entry_sq_area.grid(row=0, column=3)
 
         lbl_sq_peri = ttk.Label(self.square, text='perimeter = ')
-        lbl_sq_peri.grid(row=5, column=0)
+        lbl_sq_peri.grid(row=1, column=2)
         self.sq_peri = tk.StringVar()
-        entry_sq_peri = ttk.Entry(self.square, textvariable=self.sq_peri, state='disable')
-        entry_sq_peri.grid(row=5, column=1)
+        entry_sq_peri = ttk.Entry(self.square, width=10, textvariable=self.sq_peri, state='disable')
+        entry_sq_peri.grid(row=1, column=3)
 
     def calc_sq(self):
         self.sq_area.set(Geo_2D.Square(float(self.sq_base.get())).area())
@@ -115,9 +115,28 @@ class Window(tk.Tk):
     def circ(self):
         lbl_r = ttk.Label(self.circle, text='radius = ')
         lbl_r.grid(row=0, column=0)
-        r = tk.StringVar()
-        entry_r = ttk.Entry(self.circle, textvariable=r)
+        self.r = tk.StringVar()
+        entry_r = ttk.Entry(self.circle, textvariable=self.r)
         entry_r.grid(row=0, column=1)
+
+        button = ttk.Button(self.circle, text='Calculate', command=self.calc_circ)
+        button.grid(row=3, column=0, columnspan=2)
+
+        lbl_circ_area = ttk.Label(self.circle, text='area = ')
+        lbl_circ_area.grid(row=4, column=0)
+        self.circ_area = tk.StringVar()
+        entry_circ_area = ttk.Entry(self.circle, textvariable=self.circ_area, state='disable')
+        entry_circ_area.grid(row=4, column=1)
+
+        lbl_circ_circum = ttk.Label(self.circle, text='perimeter = ')
+        lbl_circ_circum.grid(row=5, column=0)
+        self.circ_circum = tk.StringVar()
+        entry_circ_circum = ttk.Entry(self.circle, textvariable=self.circ_circum, state='disable')
+        entry_circ_circum.grid(row=5, column=1)
+
+    def calc_circ(self):
+        self.circ_area.set(round(Geo_2D.Circle(float(self.r.get())).area(), 3))
+        self.circ_circum.set(round(Geo_2D.Circle(float(self.r.get())).circumference(), 3))
 
     def shapes_3d(self):
         pass
