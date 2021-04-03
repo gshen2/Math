@@ -29,6 +29,36 @@ class Window(tk.Tk):
         tabs.add(self.circ, text='Circle')
         tabs.pack(expand=1, fill='both')
         self.square()
+        self.circle()
+
+    def circle(self):
+        # Radius
+        lbl_r = ttk.Label(self.circ, text='Radius =')
+        lbl_r.grid(row=0, column=0)
+        self.circ_r = tk.StringVar()
+        entry_r = ttk.Entry(self.circ, width=7, textvariable=self.circ_r)
+        entry_r.grid(row=0, column=1)
+
+        # Area
+        lbl_area = ttk.Label(self.circ, text='Area =')
+        lbl_area.grid(row=0, column=2, sticky='E')
+        self.circ_area = tk.StringVar()
+        entry_area = ttk.Entry(self.circ, width=7, textvariable=self.circ_area, state='disable')
+        entry_area.grid(row=0, column=3)
+
+        # Circumference
+        lbl_c = ttk.Label(self.circ, text='Circumference =')
+        lbl_c.grid(row=1, column=2)
+        self.circ_c = tk.StringVar()
+        entry_c = ttk.Entry(self.circ, width=7, textvariable=self.circ_c, state='disable')
+        entry_c.grid(row=1, column=3)
+
+        button = ttk.Button(self.circ, text='Calculate', command=self.calc_circ)
+        button.grid(row=2, column=0, columnspan=4, sticky='NSEW', padx=20, pady=10)
+
+    def calc_circ(self):
+        self.circ_area.set(Geo_2D.Circle(float(self.circ_r.get())).area())
+        self.circ_c.set(Geo_2D.Circle(float(self.circ_r.get())).circumference())
 
     def square(self):
         # Base
