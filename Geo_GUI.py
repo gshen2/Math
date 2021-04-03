@@ -29,7 +29,51 @@ class Window(tk.Tk):
         tabs.add(self.circ, text='Circle')
         tabs.pack(expand=1, fill='both')
         self.square()
+        self.rectangle()
         self.circle()
+
+    def rectangle(self):
+        # Base
+        lbl_base = ttk.Label(self.rect, text='Base =')
+        lbl_base.grid(row=0, column=0)
+        self.rect_base = tk.StringVar()
+        entry_base = ttk.Entry(self.rect, width=7, textvariable=self.rect_base)
+        entry_base.grid(row=0, column=1)
+
+        # Height
+        lbl_h = ttk.Label(self.rect, text='Height =')
+        lbl_h.grid(row=1, column=0)
+        self.rect_h = tk.StringVar()
+        entry_h = ttk.Entry(self.rect, width=7, textvariable=self.rect_h)
+        entry_h.grid(row=1, column=1)
+
+        # Area
+        lbl_area = ttk.Label(self.rect, text='Area =')
+        lbl_area.grid(row=0, column=2, sticky='E')
+        self.rect_area = tk.StringVar()
+        entry_area = ttk.Entry(self.rect, width=7, textvariable=self.rect_area, state='disable')
+        entry_area.grid(row=0, column=3)
+
+        # Perimeter
+        lbl_per = ttk.Label(self.rect, text='Perimeter =')
+        lbl_per.grid(row=1, column=2)
+        self.rect_per = tk.StringVar()
+        entry_per = ttk.Entry(self.rect, width=7, textvariable=self.rect_per, state='disable')
+        entry_per.grid(row=1, column=3)
+
+        # Calculate Button
+        button = ttk.Button(self.rect, text='Calculate', command=self.calc_rect)
+        button.grid(row=2, column=0, columnspan=4, sticky='NSEW', padx=20, pady=10)
+
+    def calc_rect(self):
+        self.rect_area.set(Geo_2D.Rectangle(
+            float(self.rect_base.get()),
+            float(self.rect_h.get())
+        ).area())
+        self.rect_per.set(Geo_2D.Rectangle(
+            float(self.rect_base.get()),
+            float(self.rect_h.get())
+        ).perimeter())
 
     def circle(self):
         # Radius
